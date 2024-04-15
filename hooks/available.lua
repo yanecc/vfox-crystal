@@ -7,10 +7,19 @@ local json = require("json")
 function PLUGIN:Available(ctx)
     local result = {}
     local resp, err = http.get({
-        url = "https://api.github.com/repos/crystal-lang/crystal/releases"
+        -- -- Authenticate to get higher rate limit
+        -- headers = {
+        --   ['Accept'] = "application/vnd.github+json",
+        --   ['Authorization'] = "Bearer <Your_personal_github_token>",
+        --   ['X-GitHub-Api-Version'] = "2022-11-28"
+        -- },
+        url = "https://api.github.com/repos/crystal-lang/crystal/releases?per_page=40"
     })
     if err ~= nil then
         error("Failed to get information: " .. err)
+    end
+    if resp.status_code == 403 then
+        error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the ~/.version-fox/plugin/crystal/hooks/available.lua file to set your personal GitHub token for a higher rate limit before formal use.")
     end
     if resp.status_code ~= 200 then
         error("Failed to get information: status_code =>" .. resp.status_code)
@@ -22,6 +31,10 @@ function PLUGIN:Available(ctx)
             name = "crystal",
             version = release.tag_name,
         })
+        -- Support Crystal version >= 1.2.0
+        if release.id <= 51307977 then
+            break
+        end
     end
 
     return result
