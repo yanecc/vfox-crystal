@@ -1,6 +1,7 @@
 # vfox-crystal
 [Crystal](https://crystal-lang.org/) language plugin for [vfox](https://vfox.lhan.me/).
 
+Supports Crystal >= 1.2.0 (>=1.3.0 for Windows).
 
 ## Install
 

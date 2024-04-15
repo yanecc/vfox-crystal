@@ -13,7 +13,7 @@ function PLUGIN:PreInstall(ctx)
     elseif RUNTIME.osType == "linux" and RUNTIME.archType == "amd64" then
         file = "https://github.com/crystal-lang/crystal/releases/download/%s/crystal-%s-1-linux-x86_64.tar.gz"
     else
-        error("Crystal does not support " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " os")
+        error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
     end
 
     return {
