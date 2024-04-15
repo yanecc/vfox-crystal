@@ -11,7 +11,5 @@ RUNTIME = {
     archType = "",
     --- vfox runtime version
     version = "",
-    --- Plugin directory
-    pluginDirPath = "",
 }
 
