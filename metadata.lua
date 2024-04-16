@@ -36,7 +36,7 @@ NOTE:
 PLUGIN.manifestUrl = "https://github.com/yanecc/vfox-crystal/releases/download/manifest/manifest.json"
 -- Some things that need user to be attention!
 PLUGIN.notes = {
-    "For Windows, Microsoft Visual Studio build tools need downloaded at one of the following locations:",
+    "For Windows, Microsoft Visual Studio build tools need to be downloaded at one of the following locations:",
     "https://aka.ms/vs/17/release/vs_BuildTools.exe",
     "https://visualstudio.microsoft.com/downloads/ (includes Visual Studio IDE)",
     "Either the “Desktop development with C++” workload or the “MSVC v143 - VS 2022 C++ x64/x86 build tools” components should be selected.",
