@@ -19,6 +19,41 @@ function isNewVersion(version)
     end
 end
 
+function generateUrl(version, osType, archType, isNightly)
+    local baseUrl = "https://github.com/crystal-lang/crystal/releases/download/%s/crystal-%s-"
+    local nightlyUrl = "https://artifacts.crystal-lang.org/dist/crystal-nightly-"
+    local file
+
+    if isNightly then
+        if osType == "linux" then
+            file = nightlyUrl .. "linux-x86_64.tar.gz"
+        elseif osType == "darwin" then
+            file = nightlyUrl .. "darwin-universal.tar.gz"
+        else
+            error("Crystal only provides nightly builds for Linux and Darwin")
+        end
+    else
+        if osType == "darwin" then
+            if isNewVersion(version) then
+                file = baseUrl .. "1-darwin-universal.tar.gz"
+            elseif archType == "amd64" then
+                file = baseUrl .. "1-darwin-x86_64.tar.gz"
+            else
+                error("Crystal does not provide darwin-" .. archType .. " v" .. version .. " release")
+            end
+        elseif osType == "linux" and archType == "amd64" then
+            file = baseUrl .. "1-linux-x86_64.tar.gz"
+        elseif osType == "windows" and archType == "amd64" then
+            file = baseUrl .. "windows-x86_64-msvc-unsupported.zip"
+        else
+            error("Crystal does not provide " .. osType .. "-" .. archType .. " release")
+        end
+        file = file:format(version, version)
+    end
+
+    return file
+end
+
 return {
     -- Authenticate to get higher rate limit
     githubToken = "",
