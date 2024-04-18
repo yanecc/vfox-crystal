@@ -5,7 +5,7 @@ PLUGIN = {}
 --- Plugin name
 PLUGIN.name = "crystal"
 --- Plugin version
-PLUGIN.version = "0.2.0"
+PLUGIN.version = "0.3.0"
 --- Plugin homepage
 PLUGIN.homepage = "https://github.com/yanecc/vfox-crystal"
 --- Plugin license, please choose a correct license according to your needs.
@@ -42,5 +42,5 @@ PLUGIN.notes = {
     "Either the “Desktop development with C++” workload or the “MSVC v143 - VS 2022 C++ x64/x86 build tools” components should be selected.",
     "No restrictions for unix-like.",
     "",
-    "vfox-crystal supports Crystal >= 1.2.0 (>=1.3.0 for Windows)"
+    "vfox-crystal supports Crystal >= 0.24.2 (>=1.3.0 for Windows)"
 }
