@@ -1,7 +1,21 @@
 # vfox-crystal
-[Crystal](https://crystal-lang.org/) language plugin for [vfox](https://vfox.lhan.me/).
 
-Supports Crystal >= 0.24.2 and nightly build (>=1.3.0 for Windows).
+[Crystal](https://crystal-lang.org) language plugin for [vfox](https://vfox.lhan.me).
+
+Supports Crystal ≥ 0.24.2 (≥ 1.3.0 for Windows).
+To install Nightly Build, use the dev or nightly tag, or use the system date tag.
+
+``` shell
+vfox install crystal@dev
+vfox install crystal@nightly
+vfox install crystal@20240420
+```
+
+They are the same and will install Nightly Build tagged with the current date. Use it with:
+
+``` shell
+vfox use crystal@20240420
+```
 
 ## Install
 
