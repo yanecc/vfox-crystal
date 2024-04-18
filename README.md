@@ -3,6 +3,7 @@
 [Crystal](https://crystal-lang.org) language plugin for [vfox](https://vfox.lhan.me).
 
 Supports Crystal ≥ 0.24.2 (≥ 1.3.0 for Windows).
+
 To install Nightly Build, use the dev or nightly tag, or use the system date tag.
 
 ``` shell
