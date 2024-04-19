@@ -35,4 +35,4 @@ vfox use crystal@20240420
 ## Note
 
 This plugin uses the GitHub API to retrieve available versions of Crystal. It is recommended to modify the `~/.version-fox/plugin/crystal/lib/util.lua` file to set your personal GitHub token for a higher rate limit before formal use.
-https://github.com/yanecc/vfox-crystal/blob/4a23d91b915e168b280edc4a7330d37949c56798/lib/util.lua#L58-L59
+https://github.com/yanecc/vfox-crystal/blob/93e7c025b1194c240652a6ad99475cc915a407bc/lib/util.lua#L58-L59
