@@ -26,9 +26,13 @@ function PLUGIN:Available(ctx)
     end
     if resp.status_code == 403 then
         if RUNTIME.osType == "windows" then
-            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the " .. RUNTIME.pluginDirPath .. "\\lib\\util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
+            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the "
+                  .. RUNTIME.pluginDirPath
+                  .. "\\lib\\util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
         else
-            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the " .. RUNTIME.pluginDirPath .. "/lib/util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
+            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the "
+                  .. RUNTIME.pluginDirPath
+                  .. "/lib/util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
         end
     end
     if resp.status_code ~= 200 then
@@ -56,7 +60,7 @@ function PLUGIN:Available(ctx)
             if release.id <= 56533184 then
                 break
             end
-           ::continue::
+            ::continue::
         end
     else
         table.insert(result, {

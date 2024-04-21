@@ -69,7 +69,7 @@ function isGithubToken(token)
 end
 
 return {
-    -- Authenticate to get higher rate limit
+    -- Authenticate to get higher rate limit   ↓ Add your GitHub Token here
     githubToken = os.getenv("GITHUB_TOKEN") or "",
     dataVersion = getDate()
 }
