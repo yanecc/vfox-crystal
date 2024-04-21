@@ -7,7 +7,7 @@ end
 -- Check if version >= 1.2.0
 function isNewVersion(version)
     local versionTable = {}
-    for i in string.gmatch(version, "%d+") do
+    for i in version:gmatch("%d+") do
         table.insert(versionTable, tonumber(i))
     end
     if versionTable[1] == 1 and versionTable[2] >= 2 then
@@ -20,7 +20,6 @@ function isNewVersion(version)
 end
 
 function generateUrl(version, osType, archType, isNightly)
-    -- Get GitHub proxy
     local githubUrl = os.getenv("GITHUB_URL") or "https://github.com/"
     local baseUrl = githubUrl .. "crystal-lang/crystal/releases/download/%s/crystal-%s-"
     local nightlyUrl = "https://artifacts.crystal-lang.org/dist/crystal-nightly-"
@@ -71,6 +70,6 @@ end
 
 return {
     -- Authenticate to get higher rate limit
-    githubToken = os.getenv("GITHUB_URL") or "",
+    githubToken = os.getenv("GITHUB_TOKEN") or "",
     dataVersion = getDate()
 }
