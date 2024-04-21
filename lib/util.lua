@@ -22,9 +22,6 @@ end
 function generateUrl(version, osType, archType, isNightly)
     -- Get GitHub proxy
     local githubUrl = os.getenv("GITHUB_URL") or "https://github.com/"
-    if os.getenv("GITHUB_URL") then
-        githubUrl = os.getenv("GITHUB_URL")
-    end
     local baseUrl = githubUrl .. "crystal-lang/crystal/releases/download/%s/crystal-%s-"
     local nightlyUrl = "https://artifacts.crystal-lang.org/dist/crystal-nightly-"
     local file
@@ -74,6 +71,6 @@ end
 
 return {
     -- Authenticate to get higher rate limit
-    githubToken = "",
+    githubToken = os.getenv("GITHUB_URL") or "",
     dataVersion = getDate()
 }
