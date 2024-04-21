@@ -8,7 +8,7 @@ local util = require("util")
 function PLUGIN:Available(ctx)
     local result = {}
     local headers = {}
-    if util.githubToken ~= "" then
+    if isGithubToken(util.githubToken) then
         headers = {
             ['Accept'] = "application/vnd.github+json",
             ['Authorization'] = "Bearer " .. util.githubToken,

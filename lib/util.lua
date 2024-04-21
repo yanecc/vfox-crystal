@@ -54,6 +54,19 @@ function generateUrl(version, osType, archType, isNightly)
     return file
 end
 
+function isGithubToken(token)
+    local character = "[a-zA-Z0-9]"
+    -- Personal Access Token (Classic)
+    if token:match("^ghp_" .. character:rep(36) .. "$") then
+        return true
+    -- Personal Access Token (Fine-Grained)
+    elseif token:match("^github_pat_" .. character:rep(22) .. "_" .. character:rep(59) .. "$") then
+        return true
+    else
+        return false
+    end
+end
+
 return {
     -- Authenticate to get higher rate limit
     githubToken = "",
