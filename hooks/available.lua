@@ -35,7 +35,6 @@ function PLUGIN:Available(ctx)
     if RUNTIME.osType == "windows" then
         for i, release in ipairs(respInfo) do
             table.insert(result, {
-                name = "crystal",
                 version = release.tag_name
             })
             -- Support Crystal version >= 1.3.0
@@ -45,13 +44,11 @@ function PLUGIN:Available(ctx)
         end
     else
         table.insert(result, {
-            name = "crystal",
             version = util.dataVersion,
             note = "Nightly build"
         })
         for i, release in ipairs(respInfo) do
             table.insert(result, {
-                name = "crystal",
                 version = release.tag_name
             })
             -- Support Crystal version >= 0.24.2
