@@ -34,10 +34,10 @@ vfox use crystal@20240420
 
 Some environment variables are served as following:
 
-| Environment variables |     Default value     |   Description    |
-| --------------------- | --------------------- | ---------------- |
-| GITHUB_TOKEN          | ""                    | GitHub Token     |
-| GITHUB_URL            | "https://github.com/" | GitHub proxy URL |
+| Environment variables |      Default value      |   Description    |
+| --------------------- | ----------------------- | ---------------- |
+| GITHUB_TOKEN          | `""`                    | GitHub Token     |
+| GITHUB_URL            | `"https://github.com/"` | GitHub proxy URL |
 
 ## Note
 
