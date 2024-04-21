@@ -38,9 +38,16 @@ function PLUGIN:Available(ctx)
             if release.id == 76589229 then
                 goto continue
             end
-            table.insert(result, {
-                version = release.tag_name
-            })
+            if i == 1 then
+                table.insert(result, {
+                    version = release.tag_name,
+                    note = "latest"
+                })
+            else
+                table.insert(result, {
+                    version = release.tag_name
+                })
+            end
             -- Support Crystal version >= 1.3.0
             if release.id <= 56533184 then
                 break
@@ -50,12 +57,19 @@ function PLUGIN:Available(ctx)
     else
         table.insert(result, {
             version = util.dataVersion,
-            note = "Nightly build"
+            note = "nightly build"
         })
         for i, release in ipairs(respInfo) do
-            table.insert(result, {
-                version = release.tag_name
-            })
+            if i == 1 then
+                table.insert(result, {
+                    version = release.tag_name,
+                    note = "latest"
+                })
+            else
+                table.insert(result, {
+                    version = release.tag_name
+                })
+            end
             -- Support Crystal version >= 0.24.2
             if release.id <= 10022620 then
                 break
