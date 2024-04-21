@@ -34,6 +34,10 @@ function PLUGIN:Available(ctx)
 
     if RUNTIME.osType == "windows" then
         for i, release in ipairs(respInfo) do
+            -- Exclude Crystal v1.5.1
+            if release.id == 76589229 then
+                goto continue
+            end
             table.insert(result, {
                 version = release.tag_name
             })
@@ -41,6 +45,7 @@ function PLUGIN:Available(ctx)
             if release.id <= 56533184 then
                 break
             end
+           ::continue::
         end
     else
         table.insert(result, {
