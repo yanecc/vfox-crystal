@@ -25,7 +25,11 @@ function PLUGIN:Available(ctx)
         error("Failed to get information: " .. err)
     end
     if resp.status_code == 403 then
-        error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the ~/.version-fox/plugin/crystal/lib/util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
+        if RUNTIME.osType == "windows" then
+            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the " .. RUNTIME.pluginDirPath .. "\\lib\\util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
+        else
+            error("\nNote!!!\n================\nAPI rate limit exceeded. Modify the " .. RUNTIME.pluginDirPath .. "/lib/util.lua file to set your personal GitHub token for a higher rate limit before formal use.")
+        end
     end
     if resp.status_code ~= 200 then
         error("Failed to get information: " .. err .. "\nstatus_code => " .. resp.status_code)
