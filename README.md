@@ -2,20 +2,26 @@
 
 [Crystal](https://crystal-lang.org) language plugin for [vfox](https://vfox.lhan.me).
 
-Supports Crystal ≥ 0.24.2 and Nightly Builds (≥ 1.3.0 for Windows).
+Support Crystal ≥ 0.24.2 and Nightly Builds (≥ 1.3.0 for Windows).
 
 ## Install
 
 After installing [vfox](https://github.com/version-fox/vfox), install the plugin by running:
 
-```bash
+``` shell
 vfox add crystal
 ```
 
 Next, search and select the version to install.
 
-```bash
+``` shell
 vfox search crystal
+```
+
+Install the latest stable version with the latest tag.
+
+``` shell
+vfox install crystal@latest
 ```
 
 To install nightly builds, use the dev or nightly tag, or use the system date tag.
