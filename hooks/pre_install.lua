@@ -7,6 +7,9 @@ function PLUGIN:PreInstall(ctx)
     local version = ctx.version
     local file
 
+    if version == "latest" then
+        version = getLatestVersion()
+    end
     if version == "nightly" or version == "dev" then
         version = util.dataVersion
     end

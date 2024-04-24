@@ -1,3 +1,5 @@
+local http = require("http")
+
 function getDate()
     local current_date = os.date("*t")
     local formatted_date = string.format("%04d%02d%02d", current_date.year, current_date.month, current_date.day)
@@ -17,6 +19,21 @@ function isNewVersion(version)
     else
         return false
     end
+end
+
+function getLatestVersion()
+    local resp, err = http.get({
+        url = "https://crystal-lang.org/feed.xml"
+    })
+    if err ~= nil then
+        error("Failed to request: " .. err)
+    end
+    if resp.status_code ~= 200 then
+        error("Failed to get latest version: " .. err .. "\nstatus_code => " .. resp.status_code)
+    end
+
+    local version = resp.body:match("crystal/releases/tag/([0-9.]+)")
+    return version
 end
 
 function generateUrl(version, osType, archType, isNightly)
