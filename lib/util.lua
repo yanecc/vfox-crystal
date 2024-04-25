@@ -1,4 +1,4 @@
-local http = require("http")
+local strings = require("vfox.strings")
 
 function getDate()
     local current_date = os.date("*t")
@@ -6,34 +6,18 @@ function getDate()
     return formatted_date
 end
 
--- Check if version >= 1.2.0
-function isNewVersion(version)
-    local versionTable = {}
-    for i in version:gmatch("%d+") do
-        table.insert(versionTable, tonumber(i))
-    end
-    if versionTable[1] == 1 and versionTable[2] >= 2 then
-        return true
-    elseif versionTable[1] > 1 then
-        return true
-    else
-        return false
-    end
-end
+function string:isNewerThan(targetVersion)
+    local currentVersionArray = strings.split(self, ".")
+    local compareVersionArray = strings.split(targetVersion, ".")
 
-function getLatestVersion()
-    local resp, err = http.get({
-        url = "https://crystal-lang.org/feed.xml"
-    })
-    if err ~= nil then
-        error("Failed to request: " .. err)
+    for i, v in ipairs(currentVersionArray) do
+        if tonumber(v) > tonumber(compareVersionArray[i]) then
+            return true
+        elseif tonumber(v) < tonumber(compareVersionArray[i]) then
+            return false
+        end
     end
-    if resp.status_code ~= 200 then
-        error("Failed to get latest version: " .. err .. "\nstatus_code => " .. resp.status_code)
-    end
-
-    local version = resp.body:match("crystal/releases/tag/([0-9.]+)")
-    return version
+    return false
 end
 
 function generateUrl(version, osType, archType, isNightly)
@@ -52,7 +36,8 @@ function generateUrl(version, osType, archType, isNightly)
         end
     else
         if osType == "darwin" then
-            if isNewVersion(version) then
+            -- new filename since 1.2.0
+            if version.isNewerThan("1.1.9") then
                 file = baseUrl .. "1-darwin-universal.tar.gz"
             elseif archType == "amd64" then
                 file = baseUrl .. "1-darwin-x86_64.tar.gz"

@@ -5,7 +5,7 @@ PLUGIN = {}
 --- Plugin name
 PLUGIN.name = "crystal"
 --- Plugin version
-PLUGIN.version = "0.4.0"
+PLUGIN.version = "0.4.1"
 --- Plugin homepage
 PLUGIN.homepage = "https://github.com/yanecc/vfox-crystal"
 --- Plugin license, please choose a correct license according to your needs.

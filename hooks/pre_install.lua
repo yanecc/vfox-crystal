@@ -1,8 +1,6 @@
+require("client")
 local util = require("util")
 
---- @param ctx table
---- @field ctx.version string User-input version
---- @return table Version information
 function PLUGIN:PreInstall(ctx)
     local version = ctx.version
     local file
