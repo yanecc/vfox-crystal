@@ -42,8 +42,8 @@ Some environment variables are served as following:
 
 | Environment variables | Default value        | Description           |
 | :-------------------- | :------------------- | :-------------------- |
-| GITHUB_TOKEN          |                      | personal GitHub token |
 | GITHUB_URL            | `https://github.com` | GitHub mirror URL     |
+| GITHUB_TOKEN          |                      | personal GitHub token |
 
 ## Note
 
