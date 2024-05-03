@@ -12,7 +12,7 @@ function PLUGIN:PreInstall(ctx)
         version = util.dataVersion
     end
 
-    file = generateUrl(version, RUNTIME.osType, RUNTIME.archType, version == util.dataVersion)
+    file = generateURL(version, RUNTIME.osType, RUNTIME.archType, version == util.dataVersion)
 
     return {
         version = version,
