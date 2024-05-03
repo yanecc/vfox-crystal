@@ -22,7 +22,7 @@ end
 
 function generateURL(version, osType, archType)
     local file
-    local githubURL = os.getenv("GITHUB_URL") or "https://github.com"
+    local githubURL = os.getenv("GITHUB_URL") or "https://github.com/"
     local baseURL = githubURL:gsub("/$", "") .. "/crystal-lang/crystal/releases/download/%s/crystal-%s-"
 
     if osType == "darwin" then
@@ -51,7 +51,7 @@ function isGithubToken(token)
     -- Personal Access Token (Classic)
     if token:match("^ghp_" .. character:rep(36) .. "$") then
         return true
-    -- Personal Access Token (Fine-Grained)
+        -- Personal Access Token (Fine-Grained)
     elseif token:match("^github_pat_" .. character:rep(22) .. "_" .. character:rep(59) .. "$") then
         return true
     end
@@ -62,5 +62,5 @@ end
 return {
     -- Authenticate to get higher rate limit   ↓ Add your GitHub Token here
     githubToken = os.getenv("GITHUB_TOKEN") or "",
-    dataVersion = getDate()
+    dataVersion = getDate(),
 }

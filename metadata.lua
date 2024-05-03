@@ -42,4 +42,5 @@ PLUGIN.notes = {
     "No restrictions for unix-like.",
     "",
     "vfox-crystal supports Crystal >= 0.24.2 (>=1.3.0 for Windows)",
+    ""
 }
