@@ -52,3 +52,7 @@ Since vfox-crystal 0.4.1, GitHub token is no longer a necessity, but you can sti
 ```
 sed -i 's/githubToken = os.getenv("GITHUB_TOKEN") or "",/githubToken = os.getenv("GITHUB_TOKEN") or "<YOUR_GITHUB_TOKEN>",/' ~/.version-fox/plugin/crystal/lib/util.lua
 ```
+
+This will:
+1. accelerate getting the latest version
+2. accelerate fetching available versions
