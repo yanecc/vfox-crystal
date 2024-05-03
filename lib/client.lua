@@ -5,6 +5,9 @@ local util = require("util")
 -- pre_install.lua
 function getDownloadInfo(version)
     local dataVersion = util.dataVersion
+    if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
+        error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+    end
     if version == "latest" then
         version = getLatestVersion()
     end
@@ -72,9 +75,9 @@ function generateNightlyURL(osType, archType)
 
     if osType == "darwin" then
         file = nightlyUrl .. "darwin-universal.tar.gz"
-    elseif osType == "linux" and archType == "amd64" then
+    elseif osType == "linux" then
         file = nightlyUrl .. "linux-x86_64.tar.gz"
-        -- elseif osType == "windows" and archType == "amd64" then
+        -- elseif osType == "windows" then
         --     if isGithubToken(util.githubToken) then
         --         file = fetchWinNightly()
         --     else
@@ -140,6 +143,9 @@ end
 -- available.lua
 function fetchAvailable()
     local result = {}
+    if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
+        error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+    end
     if isGithubToken(util.githubToken) then
         result = fetchWithAPI()
     else
@@ -219,7 +225,6 @@ function fetchWithAPI()
         ["Authorization"] = "Bearer " .. util.githubToken,
         ["X-GitHub-Api-Version"] = "2022-11-28",
     }
-
     local resp, err = http.get({
         -- Authenticate to get higher rate limit
         headers = headers,
@@ -231,14 +236,10 @@ function fetchWithAPI()
     if resp.status_code ~= 200 then
         error("Failed to get information: " .. err .. "\nstatus_code => " .. resp.status_code)
     end
-    local respInfo = json.decode(resp.body)
+    local releases = json.decode(resp.body)
 
-    table.insert(result, {
-        version = util.dataVersion,
-        note = "nightly build",
-    })
     if RUNTIME.osType == "windows" then
-        for i, release in ipairs(respInfo) do
+        for i, release in ipairs(releases) do
             -- Exclude Crystal v1.5.1
             if release.id == 76589229 then
                 goto continue
@@ -260,7 +261,11 @@ function fetchWithAPI()
             ::continue::
         end
     else
-        for i, release in ipairs(respInfo) do
+        table.insert(result, {
+            version = util.dataVersion,
+            note = "nightly build",
+        })
+        for i, release in ipairs(releases) do
             if i == 1 then
                 table.insert(result, {
                     version = release.tag_name,
