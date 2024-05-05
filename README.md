@@ -29,13 +29,13 @@ To install nightly builds, use `dev` or `nightly` tag, or use the system date ta
 ``` shell
 vfox install crystal@dev
 vfox install crystal@nightly
-vfox install crystal@20240420
+vfox install crystal@20240501
 ```
 
 They are the same and will install nightly builds labelled with the current date. Use it with:
 
 ``` shell
-vfox use crystal@20240420
+vfox use crystal@20240501
 ```
 
 Some environment variables are served as following:
@@ -56,3 +56,4 @@ sed -i 's/githubToken = os.getenv("GITHUB_TOKEN") or "",/githubToken = os.getenv
 This will:
 1. accelerate getting the latest version
 2. accelerate fetching available versions
+3. enable installing nightly builds **for Windows**
