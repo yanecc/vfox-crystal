@@ -56,4 +56,4 @@ sed -i 's/githubToken = os.getenv("GITHUB_TOKEN") or "",/githubToken = os.getenv
 This will:
 1. accelerate getting the latest version
 2. accelerate fetching available versions
-3. enable installing nightly builds **for Windows**
+3. enable installing nightly builds **on Windows**
