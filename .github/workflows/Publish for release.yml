@@ -1,0 +1,64 @@
+name: Publish for release
+
+on:
+  release:
+    types: [published]
+
+env:
+  Plugin: vfox-crystal
+
+jobs:
+  Publish:
+    name: Publish to Releases
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Generate file name
+        id: get_name
+        run: |
+          TAG_NAME=${{ github.event.release.tag_name }}
+          VERSION=${TAG_NAME#v}
+          FILE_NAME="${GITHUB_REPOSITORY##*/}_$VERSION.zip"
+          echo "FILE_NAME=$FILE_NAME" >> $GITHUB_OUTPUT
+          echo "PLUGIN=${GITHUB_REPOSITORY##*/}" >> $GITHUB_OUTPUT
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.6
+        with:
+          type: "zip"
+          filename: ${{ steps.get_name.outputs.FILE_NAME }}
+          exclusions: "*.git* .*"
+
+      - name: Publish to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          name: "${{ steps.get_name.outputs.PLUGIN }} ${{ github.event.release.tag_name }}"
+          allowUpdates: true
+          artifacts: ${{ steps.get_name.outputs.FILE_NAME }}
+          artifactErrorsFailBuild: false
+          omitNameDuringUpdate: true
+          omitBodyDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+
+      - name: Update manifest
+        run: |
+          curl -L -o manifest.json https://github.com/$GITHUB_REPOSITORY/releases/download/manifest/manifest.json
+          sudo apt install -y jq moreutils
+          jq --arg target "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG_NAME/$FILE_NAME" \
+            --arg version "$VERSION" \
+            '.downloadUrl = $target, .version = $version' manifest.json | sponge manifest.json
+
+      - name: Publish manifest
+        uses: ncipollo/release-action@v1
+        with:
+          name: "manifest"
+          tag: "manifest"
+          allowUpdates: true
+          artifacts: "manifest.json"
+          artifactErrorsFailBuild: false
+          omitNameDuringUpdate: true
+          omitBodyDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
