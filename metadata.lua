@@ -20,7 +20,7 @@ NOTE:
     If the plugin is not compatible with the current vfox version,
     vfox will not load the plugin and prompt the user to upgrade vfox.
     --]]
-PLUGIN.minRuntimeVersion = "0.3.0"
+PLUGIN.minRuntimeVersion = "0.4.3"
 --[[
 NOTE:
     If configured, vfox will check for updates to the plugin at this address,
@@ -42,5 +42,5 @@ PLUGIN.notes = {
     "No restrictions for unix-like.",
     "",
     "vfox-crystal supports Crystal >= 0.24.2 (>=1.3.0 for Windows)",
-    ""
+    "",
 }

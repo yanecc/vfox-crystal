@@ -4,6 +4,8 @@ local util = require("util")
 
 -- pre_install.lua
 function getDownloadInfo(version)
+    local file
+    local headers
     local dataVersion = util.dataVersion
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
         error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
@@ -13,12 +15,12 @@ function getDownloadInfo(version)
     end
     if version == "dev" or version == "nightly" or version == dataVersion then
         version = dataVersion
-        file = generateNightlyURL(RUNTIME.osType, RUNTIME.archType)
+        file, headers = generateNightlyURL(RUNTIME.osType, RUNTIME.archType)
     else
         file = generateURL(version, RUNTIME.osType, RUNTIME.archType)
     end
 
-    return file, version
+    return file, headers, version
 end
 
 function getLatestVersion()
@@ -71,23 +73,24 @@ end
 
 function generateNightlyURL(osType, archType)
     local file
+    local headers
     local nightlyUrl = "https://artifacts.crystal-lang.org/dist/crystal-nightly-"
 
     if osType == "darwin" then
         file = nightlyUrl .. "darwin-universal.tar.gz"
     elseif osType == "linux" then
         file = nightlyUrl .. "linux-x86_64.tar.gz"
-        -- elseif osType == "windows" then
-        --     if isGithubToken(util.githubToken) then
-        --         file = fetchWinNightly()
-        --     else
-        --         error("Please provide a valid GitHub Token to download Windows nightly builds")
-        --     end
+    elseif osType == "windows" then
+        if isGithubToken(util.githubToken) then
+            file, headers = fetchWinNightly()
+        else
+            error("Please provide a valid GitHub Token to download Windows nightly builds")
+        end
     else
         error("Crystal doesn't provide nightly builds for " .. osType .. "-" .. archType)
     end
 
-    return file
+    return file, headers
 end
 
 function fetchWinNightly()
@@ -126,18 +129,9 @@ function fetchWinNightly()
         error("Failed to fetch artifacts: " .. err .. "\nstatus_code => " .. resp.status_code)
     end
     local job = json.decode(resp.body)
-    artifactsUrl = job.artifacts[1].archive_download_url
-    file = RUNTIME.pluginDirPath .. "/crystal-" .. util.dataVersion .. "-windows-x86_64.zip"
-    print("Fetching " .. artifactsUrl)
-    err = http.download_file({
-        url = artifactsUrl,
-        headers = headers,
-    }, file)
-    if err ~= nil then
-        error("Failed to download: " .. err)
-    end
+    file = job.artifacts[1].archive_download_url .. "#/crystal-nightly-windows-x86_64.zip"
 
-    return file
+    return file, headers
 end
 
 -- available.lua
@@ -238,6 +232,10 @@ function fetchWithAPI()
     end
     local releases = json.decode(resp.body)
 
+    table.insert(result, {
+        version = util.dataVersion,
+        note = "nightly build",
+    })
     if RUNTIME.osType == "windows" then
         for i, release in ipairs(releases) do
             -- Exclude Crystal v1.5.1
@@ -261,10 +259,6 @@ function fetchWithAPI()
             ::continue::
         end
     else
-        table.insert(result, {
-            version = util.dataVersion,
-            note = "nightly build",
-        })
         for i, release in ipairs(releases) do
             if i == 1 then
                 table.insert(result, {
