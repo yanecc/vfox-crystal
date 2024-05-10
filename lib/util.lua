@@ -6,18 +6,18 @@ function getDate()
     return formatted_date
 end
 
-function string:isNewerThan(targetVersion)
-    local currentVersionArray = strings.split(self, ".")
+function compareVersion(currentVersion, targetVersion)
+    local currentVersionArray = strings.split(currentVersion, ".")
     local compareVersionArray = strings.split(targetVersion, ".")
 
     for i, v in ipairs(currentVersionArray) do
         if tonumber(v) > tonumber(compareVersionArray[i]) then
-            return true
+            return 1
         elseif tonumber(v) < tonumber(compareVersionArray[i]) then
-            return false
+            return -1
         end
     end
-    return false
+    return 0
 end
 
 function generateURL(version, osType, archType)
@@ -27,7 +27,7 @@ function generateURL(version, osType, archType)
 
     if osType == "darwin" then
         -- new filename since 1.2.0
-        if version.isNewerThan("1.1.9") then
+        if compareVersion(version, "1.2.0") >= 0 then
             file = baseURL .. "1-darwin-universal.tar.gz"
         elseif archType == "amd64" then
             file = baseURL .. "1-darwin-x86_64.tar.gz"

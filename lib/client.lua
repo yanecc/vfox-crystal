@@ -180,7 +180,7 @@ function fetchFromReleases()
                 })
             end
             -- Support Crystal version >= 1.3.0
-            if not version:isNewerThan("1.3.0") then
+            if compareVersion(version, "1.3.0") <= 0 then
                 break
             end
             ::continue::
@@ -203,7 +203,7 @@ function fetchFromReleases()
                 })
             end
             -- Support Crystal version >= 0.24.2
-            if not version:isNewerThan("0.24.2") then
+            if compareVersion(version, "0.24.2") <= 0 then
                 break
             end
         end
