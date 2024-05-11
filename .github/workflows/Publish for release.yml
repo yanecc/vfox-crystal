@@ -49,7 +49,7 @@ jobs:
           sudo apt install -y jq moreutils
           jq --arg target "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG_NAME/$FILE_NAME" \
             --arg version "$VERSION" \
-            '.downloadUrl = $target, .version = $version' manifest.json | sponge manifest.json
+            '.downloadUrl = $target | .version = $version' manifest.json | sponge manifest.json
 
       - name: Publish manifest
         uses: ncipollo/release-action@v1
