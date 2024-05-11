@@ -5,7 +5,7 @@ PLUGIN = {}
 --- Plugin name
 PLUGIN.name = "crystal"
 --- Plugin version
-PLUGIN.version = "0.4.2"
+PLUGIN.version = "0.5.0"
 --- Plugin homepage
 PLUGIN.homepage = "https://github.com/yanecc/vfox-crystal"
 --- Plugin license, please choose a correct license according to your needs.
@@ -20,7 +20,7 @@ NOTE:
     If the plugin is not compatible with the current vfox version,
     vfox will not load the plugin and prompt the user to upgrade vfox.
     --]]
-PLUGIN.minRuntimeVersion = "0.4.3"
+PLUGIN.minRuntimeVersion = "0.5.0"
 --[[
 NOTE:
     If configured, vfox will check for updates to the plugin at this address,
