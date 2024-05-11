@@ -45,11 +45,14 @@ jobs:
 
       - name: Update manifest
         run: |
+          echo $TAG_NAME
+          echo $FILE_NAME
+          echo $GITHUB_REPOSITORY
           curl -L -o manifest.json https://github.com/$GITHUB_REPOSITORY/releases/download/manifest/manifest.json
           sudo apt install -y jq moreutils
           jq --arg target "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG_NAME/$FILE_NAME" \
-            --arg version "$VERSION" \
-            '.downloadUrl = $target | .version = $version' manifest.json | sponge manifest.json
+          --arg version "$VERSION" \
+          '.downloadUrl = $target | .version = $version' manifest.json | sponge manifest.json
 
       - name: Publish manifest
         uses: ncipollo/release-action@v1
