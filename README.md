@@ -57,3 +57,9 @@ This will:
 1. accelerate getting the latest version
 2. accelerate fetching available versions
 3. enable installing nightly builds **on Windows**
+
+vfox keeps cache for available versions by default, you can see the changes straight away with `--no-cache` flag.
+
+```
+vfox search crystal --no-cache
+```

@@ -6,6 +6,10 @@ function getDate()
     return formatted_date
 end
 
+function clearCache()
+    os.remove(RUNTIME.pluginDirPath .. "/available.cache")
+end
+
 function compareVersion(currentVersion, targetVersion)
     local currentVersionArray = strings.split(currentVersion, ".")
     local compareVersionArray = strings.split(targetVersion, ".")
@@ -57,6 +61,10 @@ function isGithubToken(token)
     end
 
     return false
+end
+
+function clearCache()
+    os.remove(RUNTIME.pluginDirPath .. "/available.cache")
 end
 
 return {
