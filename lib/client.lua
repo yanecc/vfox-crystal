@@ -7,10 +7,6 @@ function getDownloadInfo(version)
     local file
     local headers
     local dataVersion = util.dataVersion
-    if version == "clear" then
-        clearCache()
-        os.exit()
-    end
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
         error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
     end
