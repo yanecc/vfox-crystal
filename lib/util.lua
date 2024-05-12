@@ -63,10 +63,6 @@ function isGithubToken(token)
     return false
 end
 
-function clearCache()
-    os.remove(RUNTIME.pluginDirPath .. "/available.cache")
-end
-
 return {
     -- Authenticate to get higher rate limit   ↓ Add your GitHub Token here
     githubToken = os.getenv("GITHUB_TOKEN") or "",
