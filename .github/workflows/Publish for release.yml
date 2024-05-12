@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  Plugin: vfox-crystal
-
 jobs:
   Publish:
     name: Publish to Releases
@@ -47,10 +44,9 @@ jobs:
       - name: Update manifest
         run: |
           curl -L -o manifest.json https://github.com/$GITHUB_REPOSITORY/releases/download/manifest/manifest.json
-          sudo apt install -y moreutils
-          jq --arg target "https://github.com/$GITHUB_REPOSITORY/releases/download/${{ github.event.release.tag_name }}/${{ steps.get_name.outputs.FILE_NAME }}" \
+          echo "$(jq --arg target "https://github.com/$GITHUB_REPOSITORY/releases/download/${{ github.event.release.tag_name }}/${{ steps.get_name.outputs.FILE_NAME }}" \
             --arg version "${{ steps.get_name.outputs.VERSION }}" \
-            '.downloadUrl = $target | .version = $version' manifest.json | sponge manifest.json
+            '.downloadUrl = $target | .version = $version' manifest.json)" > manifest.json
 
       - name: Publish manifest
         uses: ncipollo/release-action@v1
