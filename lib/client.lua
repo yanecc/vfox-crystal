@@ -135,7 +135,7 @@ function fetchWinNightly()
 end
 
 -- available.lua
-function fetchAvailable()
+function fetchAvailable(noCache)
     local result = {}
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
         error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
