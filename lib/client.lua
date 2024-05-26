@@ -8,7 +8,8 @@ function getDownloadInfo(version)
     local headers
     local dataVersion = util.dataVersion
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
-        error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+        print("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+        os.exit(1)
     end
     if version == "latest" then
         version = getLatestVersion()
@@ -84,10 +85,12 @@ function generateNightlyURL(osType, archType)
         if isGithubToken(util.githubToken) then
             file, headers = fetchWinNightly()
         else
-            error("Please provide a valid GitHub Token to download Windows nightly builds")
+            print("Please provide a valid GitHub Token to download Windows nightly builds")
+            os.exit(1)
         end
     else
-        error("Crystal doesn't provide nightly builds for " .. osType .. "-" .. archType)
+        print("Crystal doesn't provide nightly builds for " .. osType .. "-" .. archType)
+        os.exit(1)
     end
 
     return file, headers
@@ -138,7 +141,8 @@ end
 function fetchAvailable(noCache)
     local result = {}
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
-        error("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+        print("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
+        os.exit(1)
     end
     if noCache then
         clearCache()

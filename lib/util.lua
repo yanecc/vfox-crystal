@@ -36,14 +36,16 @@ function generateURL(version, osType, archType)
         elseif archType == "amd64" then
             file = baseURL .. "1-darwin-x86_64.tar.gz"
         else
-            error("Crystal does not provide darwin-" .. archType .. " v" .. version .. " release")
+            print("Crystal does not provide darwin-" .. archType .. " v" .. version .. " release")
+            os.exit(1)
         end
     elseif osType == "linux" and archType == "amd64" then
         file = baseURL .. "1-linux-x86_64.tar.gz"
     elseif osType == "windows" and archType == "amd64" then
         file = baseURL .. "windows-x86_64-msvc-unsupported.zip"
     else
-        error("Crystal does not provide " .. osType .. "-" .. archType .. " release")
+        print("Crystal does not provide " .. osType .. "-" .. archType .. " release")
+        os.exit(1)
     end
     file = file:format(version, version)
 
@@ -55,7 +57,7 @@ function isGithubToken(token)
     -- Personal Access Token (Classic)
     if token:match("^ghp_" .. character:rep(36) .. "$") then
         return true
-    -- Personal Access Token (Fine-Grained)
+        -- Personal Access Token (Fine-Grained)
     elseif token:match("^github_pat_" .. character:rep(22) .. "_" .. character:rep(59) .. "$") then
         return true
     end
