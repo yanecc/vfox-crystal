@@ -140,12 +140,12 @@ end
 -- available.lua
 function fetchAvailable(noCache)
     local result = {}
+    if noCache then
+        clearCache()
+    end
     if RUNTIME.archType ~= "amd64" and RUNTIME.osType ~= "darwin" then
         print("Crystal does not provide " .. RUNTIME.osType .. "-" .. RUNTIME.archType .. " release")
         os.exit(1)
-    end
-    if noCache then
-        clearCache()
     end
     if isGithubToken(util.githubToken) then
         result = fetchWithAPI()

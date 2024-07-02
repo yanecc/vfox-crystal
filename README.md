@@ -12,11 +12,11 @@ After installing [vfox](https://github.com/version-fox/vfox), install the plugin
 vfox add crystal
 ```
 
-Next, search and select the version to install. By default, vfox keeps cache for available versions, use `--no-cache` flag to search without cache and rebuild the cache.
+Next, search and select the version to install. By default, vfox keeps cache for available versions, use the `--no-cache` flag to delete the cache file.
 
 ``` shell
 vfox search crystal
-vfox search crystal --no-cache
+vfox search crystal --no-cache && vfox search crystal
 ```
 
 Install the latest stable version with `latest` tag.
@@ -30,13 +30,13 @@ To install nightly builds, use `dev` or `nightly` tag, or use the system date ta
 ``` shell
 vfox install crystal@dev
 vfox install crystal@nightly
-vfox install crystal@20240501
+vfox install crystal@20240701
 ```
 
 They are the same and will install nightly builds labelled with the current date. Use it with:
 
 ``` shell
-vfox use crystal@20240501
+vfox use crystal@20240701
 ```
 
 Some environment variables are served as following:
@@ -48,7 +48,7 @@ Some environment variables are served as following:
 
 ## Note
 
-Since vfox-crystal 0.4.1, GitHub token is no longer a necessity, but you can still set it via the GITHUB_TOKEN environment variable or modifying the plugin asset for efficiency. Search with `--no-cache` flag to see the changes straight away.
+It's recommended to set the `GITHUB_TOKEN` environment variable or modify the plugin asset for efficiency. Search with `--no-cache` flag to see the changes straight away.
 
 ``` shell
 sed -i 's/githubToken = os.getenv("GITHUB_TOKEN") or "",/githubToken = os.getenv("GITHUB_TOKEN") or "<YOUR_GITHUB_TOKEN>",/' ~/.version-fox/plugin/crystal/lib/util.lua
