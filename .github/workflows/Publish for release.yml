@@ -1,4 +1,4 @@
-name: Publish for release
+name: Publish for Release
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   Publish:
-    name: Publish to Releases
+    name: Publish for Release
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
@@ -23,12 +23,10 @@ jobs:
           echo "FILE_NAME=$FILE_NAME" >> $GITHUB_OUTPUT
           echo "PLUGIN=${GITHUB_REPOSITORY##*/}" >> $GITHUB_OUTPUT
 
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.6
+      - name: Package assets
+        uses: edgarrc/action-7z@v1
         with:
-          type: "zip"
-          filename: ${{ steps.get_name.outputs.FILE_NAME }}
-          exclusions: "*.git* .*"
+          args: 7z a -tzip -mx=9 -xr!*.git* -xr!.* ${{ steps.get_name.outputs.FILE_NAME }}
 
       - name: Publish to Releases
         uses: ncipollo/release-action@v1
